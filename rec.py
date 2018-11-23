@@ -11,7 +11,7 @@ class Parel(Square):
     def 넓이(x,y):
         return x * y
 
-rect_type = input("사가곃ㅇ의 종류는?/n 1)직사각형/n 2)평행사변형/n >>")
+rect_type = input("사각형의 종류는?/n 1)직사각형/n 2)평행사변형/n >>")
 
 if rect_type =='1':
     rect1 = Rec
