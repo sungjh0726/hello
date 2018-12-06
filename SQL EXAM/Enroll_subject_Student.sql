@@ -35,6 +35,10 @@ create table subject(
     on delete set null,
 
 );
+
+select * from subject;
+
+
 -- fk_prof(여기 안에 prof 컬럼을 넣어줘야함) 그리고 Prof에서 레퍼런스를 불러오기alter
 
 
@@ -60,14 +64,42 @@ create table Enroll(
 	
 );
 
-insert into subject(name,Student)
- select '국어', id from Prof order by rand() limit 1000;
+
+
 
 insert into Enroll(name, subject) select name from Student order by rand() limit 1000;
 
 select * from subject (select name from Student order by rand() limit 1000);
 
---insert into Enroll(name, subject, Student) 
+insert into Enroll(name, Student) select name from subject;
+
+ 
+select count(*) from (select Student, subject count(*) from Enroll group by Student, subject);
+
+select sbj.id, sbj.name, s.id
+ from subject sbj, (select id from Student order by rand() limit 3) s order by sbj.id;
+ 
+ insert into Enroll(subject, student)
+  from (select id from subject where id not in (select distinct subject form Enroll) order by id limit 1)
+	(select id from Student order by radn() limit 100) s;
+    
+
+
+-- insert into Enroll(name, subject, Student) 
  (select b.*, s.name as 'student name' from subject b inner join Student s on b.name = s.id);
 
---문장끝마다 ,표시하기 / 대소문자/ colum type 맞추기
+-- 문장끝마다 ,표시하기 / 대소문자/ colum type 맞추기
+
+select count(*) from Student;
+
+select * from Student order by birth limit 10;
+
+select * from Student where name like '김%' limit 10;
+
+select * from Student where addr = '서울' and birth >= '198%' order by id;
+
+select * from Student where addr = '서울' and birth between '1991-01-01' and '9999-12-31' order by id; 
+
+select sj.*, pf.name.name as 'Professor name' from subject sj inner join Prof pf on sj.prof = pf.id;
+
+select from subject Prof
